@@ -70,6 +70,13 @@ jobs:
         run: dvc pull data/train_batch1.csv data/holdout.csv
 
       - name: Train model
+        # Bonus 1: ghi thi nghiem len MLflow server cua DagsHub thay vi file cuc bo.
+        # Chi dat env cho rieng step nay. KHONG dat cho job unit-test, vi tests goi
+        # train() ba lan tren du lieu ngau nhien va se day run rac len server.
+        env:
+          MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
+          MLFLOW_TRACKING_USERNAME: ${{ secrets.MLFLOW_TRACKING_USERNAME }}
+          MLFLOW_TRACKING_PASSWORD: ${{ secrets.MLFLOW_TRACKING_PASSWORD }}
         run: python src/train.py
 
       - name: Read report

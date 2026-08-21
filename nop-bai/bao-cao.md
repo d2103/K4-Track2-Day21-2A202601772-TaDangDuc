@@ -13,11 +13,11 @@ HƯỚNG DẪN - đọc rồi XÓA TOÀN BỘ các khối chú thích này sau k
 
 | | |
 |---|---|
-| Họ và tên | ___ |
-| MSSV | ___ |
+| Họ và tên | Tạ Đăng Đức |
+| MSSV | 2A202601772 |
 | Lớp / Khóa | K4 |
 | Repo GitHub | https://github.com/___/___ |
-| Ngày nộp | ___ |
+| Ngày nộp | 21/08/2026 |
 
 ---
 
@@ -27,21 +27,22 @@ HƯỚNG DẪN - đọc rồi XÓA TOÀN BỘ các khối chú thích này sau k
 
 | Lần chạy | n_estimators | learning_rate | max_depth | f1_score | accuracy |
 |---|---|---|---|---|---|
-| 1 | ___ | ___ | ___ | ___ | ___ |
-| 2 | ___ | ___ | ___ | ___ | ___ |
-| 3 | ___ | ___ | ___ | ___ | ___ |
+| 1 | 100 | 0.1 | 3 | 0.7109 | 0.8780 |
+| 2 | 50 | 0.05 | 2 | 0.6051 | 0.8460 |
+| 3 | 200 | 0.1 | 5 | **0.7149** | 0.8740 |
 
-**Bộ siêu tham số đã chọn:** `n_estimators=___`, `learning_rate=___`, `max_depth=___`.
+**Bộ siêu tham số đã chọn:** `n_estimators=200`, `learning_rate=0.1`, `max_depth=5`.
 
-**Lý do:** ___
-
-<!--
-Trả lời trong phần Lý do:
-  - Vì sao bộ này tốt hơn các bộ còn lại (dựa trên f1_score, không phải accuracy)?
-  - Lần chạy có accuracy cao nhất có trùng với lần có f1_score cao nhất không?
-    Nếu không, điều đó nói lên điều gì?
-  - Bạn quan sát thấy đánh đổi nào giữa n_estimators và learning_rate?
--->
+**Lý do:** Lần chạy 3 đạt `f1_score` cao nhất (0,7149) nên được chọn, đúng theo tiêu chí
+của lab là F1 của lớp dương chứ không phải accuracy. Điểm đáng chú ý là lần chạy có
+accuracy cao nhất lại **không** phải lần có F1 cao nhất: lần 1 dẫn đầu về accuracy
+(0,8780) nhưng F1 chỉ 0,7109, thấp hơn lần 3. Điều này cho thấy accuracy gần như bão hòa
+quanh 0,85 - 0,88 và không phân biệt được chất lượng thật giữa các mô hình, trong khi F1
+dao động tới 0,11 giữa lần tốt nhất và lần tệ nhất. Về đánh đổi giữa `n_estimators` và
+`learning_rate`, lần 2 hạ đồng thời cả ba tham số (50 cây, `learning_rate` 0,05,
+`max_depth` 2) khiến mô hình quá yếu và F1 tụt xuống 0,6051 — dưới ngưỡng 0,65 nên sẽ bị
+quality gate chặn ở Bước 2, dù accuracy 0,8460 của nó vẫn trông bình thường. Khi giảm
+`learning_rate` thì phải tăng `n_estimators` để bù lại.
 
 ---
 
